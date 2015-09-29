@@ -8,5 +8,30 @@
   <%= @article.text %>
 </p>
 
+
+<h2>Add a comment:</h2>
+<%= form_for([@article, @article.comments.build]) do |f| %>
+  <p>
+    <%= f.label :commenter %><br>
+    <%= f.text_field :commenter %>
+  </p>
+  <p>
+    <%= f.label :body %><br>
+    <%= f.text_area :body %>
+  </p>
+  <p>
+    <%= f.submit %>
+  </p>
+<% end %>
+
+<br><br>
+  <%= @comments.count %>
+  <% @comments.each do |each_comment| %>
+    <p><%= each_comment.commenter %></p>
+    <p><%= each_comment.body %></p>
+    <p><%= link_to "Delete comment", [each_comment.article, each_comment], method: :delete, data: {confirm: "Are you sure?"} %></p>
+  <% end %>
+
+
 <%= link_to 'Edit', edit_article_path(@article) %>
 <%= link_to 'Back' , articles_path %>
